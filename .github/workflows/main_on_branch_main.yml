@@ -1,0 +1,36 @@
+name: "⭐ Main Branch Main Workflow"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  python_lint:
+    name: 🐍 Python lint
+    uses: ./.github/workflows/reusable_python_lint.yml
+    permissions:
+      contents: read
+
+  python_typecheck:
+    name: 🐍 Python typecheck
+    uses: ./.github/workflows/reusable_python_typecheck.yml
+    permissions:
+      contents: read
+
+  python_test:
+    name: 🛠️ Test Python
+    uses: ./.github/workflows/reusable_python_test.yml
+    permissions:
+      contents: read
+
+  publish:
+    name: 🚀 Publish package
+    uses: ./.github/workflows/reusable_publish.yml
+    permissions:
+      contents: write
+    secrets: inherit
+    needs:
+      - python_lint
+      - python_typecheck
+      - python_test

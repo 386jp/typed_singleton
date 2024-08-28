@@ -1,0 +1,25 @@
+name: "Setup Python"
+description: "Setup python environment"
+
+runs:
+  using: composite
+  steps:
+    - name: Get current python version
+      id: python-version
+      shell: bash
+      run: echo "PYTHON_VERSION=$(cat .tool-versions | grep python | sed s/python\ //)" >> $GITHUB_OUTPUT
+
+    - name: Get current poetry version
+      id: poetry-version
+      shell: bash
+      run: echo "POETRY_VERSION=$(cat .tool-versions | grep poetry | sed s/poetry\ //)" >> $GITHUB_OUTPUT
+
+    - name: Setup Poetry
+      shell: bash
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 - --version "${{ steps.poetry-version.outputs.POETRY_VERSION }}"
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ steps.python-version.outputs.PYTHON_VERSION }}

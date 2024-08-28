@@ -1,0 +1,23 @@
+name: "♻️ Python test"
+
+on:
+  workflow_call:
+
+jobs:
+  python_test:
+    name: Run pytest
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: ./.github/actions/setup_python
+
+      - name: Install dependencies
+        run: poetry install --only main,ci-test
+
+      - name: Run test
+        run: poetry run pytest ./test/

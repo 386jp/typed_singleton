@@ -1,0 +1,23 @@
+name: "⭐ PR Main Workflow"
+
+on:
+  pull_request:
+
+jobs:
+  python_lint:
+    name: 🐍 Python lint
+    uses: ./.github/workflows/reusable_python_lint.yml
+    permissions:
+      contents: read
+
+  python_typecheck:
+    name: 🐍 Python typecheck
+    uses: ./.github/workflows/reusable_python_typecheck.yml
+    permissions:
+      contents: read
+
+  python_test:
+    name: 🛠️ Test Python
+    uses: ./.github/workflows/reusable_python_test.yml
+    permissions:
+      contents: read

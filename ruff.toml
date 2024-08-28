@@ -1,0 +1,22 @@
+target-version = "py312"
+
+[lint]
+select = ["ALL"]
+
+[lint.per-file-ignores]
+"*/__init__.py" = [
+    "D104",  # __init__.py doesn't need docstring
+]
+"test/**/*" = [
+    "D", # test code doesn't need to be documented
+    "ANN201",  # test code doesn't need retun type annotated
+    "S101", # Allow asserts
+    "ERA001", # Allow comments
+    "E501", # Ignore line length
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

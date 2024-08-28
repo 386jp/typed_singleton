@@ -1,0 +1,23 @@
+name: "♻️ Python lint"
+
+on:
+  workflow_call:
+
+jobs:
+  python_lint:
+    name: Run ruff
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: ./.github/actions/setup_python
+
+      - name: Install dependencies
+        run: poetry install --only ci-lint
+
+      - name: Run lint
+        run: poetry run ruff check --output-format github

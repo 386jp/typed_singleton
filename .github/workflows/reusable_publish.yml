@@ -1,0 +1,38 @@
+name: "♻️ Publish package"
+
+on:
+  workflow_call:
+
+jobs:
+  publish_python:
+    name: Publish to PyPI using poetry
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: ./.github/actions/setup_python
+
+      - name: Install dependencies
+        run: poetry install --only main
+
+      - name: Get version number
+        id: version-number
+        run: echo "VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.version-number.outputs.VERSION }}" \
+          -t "${{ steps.version-number.outputs.VERSION }}" \
+          -n "[Workflow](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" \
+          --target "${{ github.sha }}"
+
+      - name: Publish to PyPI
+        run: poetry publish --build
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}

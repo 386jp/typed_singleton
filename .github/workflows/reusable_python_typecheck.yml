@@ -1,0 +1,26 @@
+name: "♻️ Python typecheck"
+
+on:
+  workflow_call:
+
+jobs:
+  python_typecheck:
+    name: Run mypy
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: ./.github/actions/setup_python
+
+      - name: Install dependencies
+        run: poetry install --only main,dev,ci-typecheck
+
+      - name: Register problem matcher
+        run: echo "::add-matcher::.github/workflows/matchers/mypy.json"
+
+      - name: Run test
+        run: poetry run mypy . --no-error-summary
