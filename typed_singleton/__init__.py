@@ -3,6 +3,6 @@
 This package provides a decorator to create singletons.
 """
 
-from .typed_singleton import singleton
+from .typed_singleton import Singleton
 
-__all__ = ["singleton"]
+__all__ = ["Singleton"]

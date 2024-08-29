@@ -1,7 +1,7 @@
-from typed_singleton import singleton
+from typed_singleton import Singleton
 
 
-@singleton
+@Singleton
 class SingletonTest1:
     def __init__(self, value: int) -> None:
         self.value = value
@@ -10,7 +10,7 @@ class SingletonTest1:
         return self.value
 
 
-@singleton
+@Singleton
 class SingletonTest2:
     def __init__(self, value: int) -> None:
         self.value = value
