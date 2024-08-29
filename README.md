@@ -11,10 +11,10 @@ pip install typed_singleton
 ## Usage
 
 ```python
-from typed_singleton import singleton
+from typed_singleton import Singleton
 
 
-@singleton
+@Singleton
 class SingletonClass:
     def __init__(self, my_value: int) -> None:
         self.my_value = my_value
