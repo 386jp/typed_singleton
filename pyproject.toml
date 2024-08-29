@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "typed_singleton"
-version = "0.1.1"
+version = "0.1.2"
 description = "Package to provide a decorator to create singletons"
 authors = ["Kyosuke Miyamura <ask@386.jp>"]
 readme = "README.md"
