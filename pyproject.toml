@@ -1,9 +1,11 @@
 [tool.poetry]
 name = "typed_singleton"
-version = "0.1.0"
+version = "0.1.1"
 description = "Package to provide a decorator to create singletons"
 authors = ["Kyosuke Miyamura <ask@386.jp>"]
 readme = "README.md"
+license = "MIT"
+repository = "https://github.com/386jp/typed_singleton"
 
 [tool.poetry.dependencies]
 python = "^3.12"

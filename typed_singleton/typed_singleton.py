@@ -5,33 +5,36 @@ This package provides a decorator to create singletons.
 
 import threading
 from collections.abc import Callable
-from functools import wraps
-from typing import ParamSpec, TypeVar
+from typing import Generic, ParamSpec, TypeVar
 
 T = TypeVar("T")
 P = ParamSpec("P")
 
 
-def singleton(class_: Callable[P, T]) -> Callable[P, T]:
-    """Return a singleton instance of a class.
+class Singleton(Generic[T, P]):
+    """Decorator to create singletons."""
 
-    Args:
-    ----
-        class_ (Callable[P, T]): Class to be singleton.
+    def __init__(self, cls: Callable[P, T]) -> None:
+        """Initialize the Singleton class.
 
-    Returns:
-    -------
-        Callable[P, T]: Singleton instance of the class.
+        Args:
+        ----
+            cls (Callable[P, T]): class to be singleton.
 
-    """
-    instances = {}
-    lock = threading.Lock()
+        """
+        self._cls = cls
+        self._instance: T | None = None
+        self._lock = threading.Lock()
 
-    @wraps(class_)
-    def get_instance(*args: P.args, **kwargs: P.kwargs) -> T:
-        with lock:
-            if class_ not in instances:
-                instances[class_] = class_(*args, **kwargs)
-        return instances[class_]
+    def __call__(self, *args: P.args, **kwargs: P.kwargs) -> T:
+        """Return the singleton instance of the class.
 
-    return get_instance
+        Returns
+        -------
+            T: Singleton instance of the class.
+
+        """
+        with self._lock:
+            if self._instance is None:
+                self._instance = self._cls(*args, **kwargs)
+            return self._instance
