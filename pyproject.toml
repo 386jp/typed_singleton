@@ -20,7 +20,7 @@ optional = true
 
 [tool.poetry.group.ci-test.dependencies]
 pytest = "^8.3.2"
-pytest-github-actions-annotate-failures = "^0.2.0"
+pytest-github-actions-annotate-failures = "^0.4.0"
 
 [tool.poetry.group.ci-lint]
 optional = true
