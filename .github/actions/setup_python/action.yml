@@ -20,6 +20,6 @@ runs:
         curl -sSL https://install.python-poetry.org | python3 - --version "${{ steps.poetry-version.outputs.POETRY_VERSION }}"
         echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-    - uses: actions/setup-python@v5
+    - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
       with:
         python-version: ${{ steps.python-version.outputs.PYTHON_VERSION }}
