@@ -11,7 +11,7 @@ repository = "https://github.com/386jp/typed_singleton"
 python = "^3.12"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.3.2"
+pytest = "^9.0.0"
 ruff = "^0.6.2"
 mypy = "^1.11.2"
 
@@ -19,7 +19,7 @@ mypy = "^1.11.2"
 optional = true
 
 [tool.poetry.group.ci-test.dependencies]
-pytest = "^8.3.2"
+pytest = "^9.0.0"
 pytest-github-actions-annotate-failures = "^0.2.0"
 
 [tool.poetry.group.ci-lint]
